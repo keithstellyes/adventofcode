@@ -2,6 +2,8 @@ class Rucksack:
     def __init__(self, c1, c2):
         self.c1 = c1
         self.c2 = c2
+    def allitems(self):
+        return set.union(set(self.c1.keys()), set(self.c2.keys()))
 
 def parse(fname, on_rucksack):
     def raw_to_dict(raw):
