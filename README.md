@@ -21,10 +21,13 @@ Some things missing/possible "improvements"
     logic and solution
 
 # Progress
+2022:
 - [x] Day 1
 - [x] Day 2
 - [x] Day 3
 - [x] Day 4
+2021:
+- [x] Day 1
 
 # Callouts
 
