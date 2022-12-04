@@ -1,11 +1,15 @@
 import sys, shared
-
-class Submarine:
+dirs = {'forward':(1,0), 'down':(0,1), 'up':(0,-1)}
+class SubmarineTracker:
     def __init__(self):
-        self.coord = (0, 0)
-    def on_move(self, move):
-        self.coord = move.apply(self.coord)
+        self.sub = shared.Submarine()
+    def on_instr(self, move):
+        d = dirs[move.d]
+        horiz = d[0] * move.x
+        depth = d[1] * move.x
+        self.sub.horizontal += horiz
+        self.sub.depth += depth
 
-s = Submarine()
-shared.parse(sys.argv[1], s.on_move)
-print(s.coord[0] * s.coord[1])
+s = SubmarineTracker()
+shared.parse(sys.argv[1], s.on_instr)
+print(s.sub.horizontal * s.sub.depth)
