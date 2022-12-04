@@ -24,3 +24,9 @@ Some things missing/possible "improvements"
 - [x] Day 1
 - [x] Day 2
 - [x] Day 3
+- [x] Day 4
+
+# Callouts
+
+Day 4 - overloading Python `in` operator, `shared.py` did not require rewrite
+for pt 2
