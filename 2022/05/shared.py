@@ -4,7 +4,7 @@ class Instr:
         self.origin = int(origin)
         self.dest = int(dest)
 
-# 0 is top of stack, -1 is bottom (len(stack) - 1)
+# 0 is bottom of stack, -1 is top (len(stack) - 1)
 def parse(fname, on_stacks, on_instr):
     CHARS_PER_STACK = 4
     with open(fname, 'r') as f:
@@ -21,7 +21,7 @@ def parse(fname, on_stacks, on_instr):
             for n in range(number_stacks):
                 box = line[n * CHARS_PER_STACK + 1]
                 if box != ' ':
-                    stacks[n].append(box)
+                    stacks[n].insert(0, box)
         on_stacks(stacks)
         # consume empty line separating stacks from instrs
         assert f.readline().strip() == ''
@@ -32,11 +32,10 @@ def parse(fname, on_stacks, on_instr):
 
 def print_stacks(stacks):
     tallest_stack = max([len(s) for s in stacks])
-    for n in range(tallest_stack):
+    for n in range(tallest_stack - 1, -1, -1):
         for stack in stacks:
-            idx = n - (tallest_stack - len(stack))
-            if idx >= 0 and idx < len(stack):
-                print('[{}]'.format(stack[idx]), end=' ')
+            if n < len(stack):
+                print('[{}]'.format(stack[n]), end=' ')
             else:
                 print('   ', end=' ')
         print()
