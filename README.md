@@ -26,6 +26,7 @@ Some things missing/possible "improvements"
 - [x] Day 2
 - [x] Day 3
 - [x] Day 4
+- [x] Day 5
 
 2021:
 - [x] Days 1-2
