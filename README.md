@@ -22,18 +22,21 @@ Some things missing/possible "improvements"
 
 # Progress
 2022:
-- [x] Day 1
-- [x] Day 2
-- [x] Day 3
-- [x] Day 4
-- [x] Day 5
+- [x] Days 1-6
 
 2021:
 - [x] Days 1-2
 
 # Callouts
 
-2022-04 - overloading Python `in` operator, `shared.py` did not require rewrite
+2022-04 
+- overloading Python `in` operator, `shared.py` did not require rewrite
 for pt 2
 
-2022-2 - bit of a refactor to accomodate Pt 2
+2022-02:
+- bit of a refactor to accomodate Pt 2
+
+2022-06:
+- Ring buffer!!!
+- Didn't use a shared.py but didn't use magic numbers so was easier
+to accomodate pt 2. To complete Pt 2, shared.py moved most p1 code to shared. Pt 1 and Pt 2 make the exact same function call except with a different integer parameter
