@@ -1,6 +1,7 @@
 .pass
 # Keith's input file naming scheme
-ex.*
+ex*
+example
 input
 
 # Byte-compiled / optimized / DLL files
