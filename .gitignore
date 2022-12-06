@@ -1,4 +1,8 @@
 .pass
+# Keith's input file naming scheme
+ex.*
+input
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
