@@ -22,7 +22,7 @@ Some things missing/possible "improvements"
 
 # Progress
 2022:
-- [x] Days 1-6
+- [x] Days 1-7
 
 2021:
 - [x] Days 1-2

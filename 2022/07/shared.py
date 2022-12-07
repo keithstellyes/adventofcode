@@ -57,6 +57,8 @@ class Directory:
         for f in self.files:
             total += f.size()
         return total
+    #TODO: ideally this isn't computed per call,
+    # but instead a cached value that is updated on every add_entry :)
     def get_size(self):
         total = 0
         for c in self.children():
