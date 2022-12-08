@@ -25,7 +25,10 @@ Some things missing/possible "improvements"
 - [x] Days 1-8
 
 2021:
-- [x] Days 1-2
+- [x] Days 1-3
+
+2019:
+- [x] Day 1
 
 # Callouts
 
