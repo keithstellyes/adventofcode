@@ -12,21 +12,21 @@ def try_nv(n, v):
 
 target = 19690720
 
-rn, rv = 99, 99
-ln, lv = 1, 1
-while ln < rn:
-    n = ln + ((rn - ln) // 2)
-    if try_nv(n, rv) > target:
-        rn = ln
-    else:
-        ln = n
-
+# for every possible noun, do a binary search
+# for a verb that equals the target
 for noun in range(1, 100):
-    for verb in range(1, 100):
-        if try_nv(noun, verb) == target:
-            print(noun, verb)
-            print(100 * noun + verb)
+    lv = 1
+    rv = 99
+    while lv < rv:
+        v = (lv + rv) // 2
+        result = try_nv(noun, v)
+        if(result == target):
+            print('Noun:', noun, 'Verb:', v)
+            print(100 * noun + v)
             sys.exit(0)
-
+        elif result < target:
+            lv = v + 1
+        else:
+            rv = v - 1
 print('FAILED TO FIND')
 sys.exit(1)

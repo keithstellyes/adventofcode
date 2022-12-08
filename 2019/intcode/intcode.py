@@ -1,8 +1,17 @@
+'''
+Many problems in 2019 use this computer or build upon it. The days are
+2, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25
+
+https://esolangs.org/wiki/Intcode
+'''
+
 import typing
 
+### Day 1 ops! ###
 OP_ADD = 1
 OP_MUL = 2
 OP_HLT = 99
+##################
 OP_ARGC = {OP_ADD:3, OP_MUL:3, OP_HLT:0}
 
 class Computer:
