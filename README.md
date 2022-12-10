@@ -22,7 +22,7 @@ Some things missing/possible "improvements"
 
 # Progress
 2022:
-- [x] Days 1-8
+- [x] Days 1-10
 
 2021:
 - [x] Days 1-3
@@ -46,3 +46,6 @@ for pt 2
 - Ring buffer!!!
 - Didn't use a shared.py but didn't use magic numbers so was easier
 to accomodate pt 2. To complete Pt 2, shared.py moved most p1 code to shared. Pt 1 and Pt 2 make the exact same function call except with a different integer parameter
+
+2022-10:
+- couple layers of callbacks
