@@ -22,7 +22,7 @@ Some things missing/possible "improvements"
 
 # Progress
 2022:
-- [x] Days 1-10
+- [x] Days 1-11
 
 2021:
 - [x] Days 1-3
@@ -49,3 +49,6 @@ to accomodate pt 2. To complete Pt 2, shared.py moved most p1 code to shared. Pt
 
 2022-10:
 - couple layers of callbacks
+
+2022-11:
+- Modular arithmetic required for sufficiently efficient solution

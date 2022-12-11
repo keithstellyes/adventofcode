@@ -27,7 +27,7 @@ class Monkey:
         self.mt = mt
         self.mf = mf
         self.inspect_ctr = 0
-    def turn(self):
+    def turn(self, worry_decay):
         self.inspect_ctr += len(self.items)
         moves = []
         
@@ -35,7 +35,8 @@ class Monkey:
             it = self.items.pop(0)
             it = self.inspect.eval(it)
             # monkey gets bored, worry decreases and throws it
-            it //= 3
+            if worry_decay:
+                it //= 3
             recipient = self.mt if it % self.testfactor == 0 else self.mf
             moves.append(MonkeyMove(recipient=recipient, item=it))
         return moves
@@ -48,13 +49,24 @@ class Monkey:
         return s
 
 class KeepAway:
-    def __init__(self, monkeys:list[Monkey]):
+    def __init__(self, monkeys:list[Monkey], worry_decay:bool):
         self.monkeys = monkeys
+        self.worry_decay = worry_decay
+        self.max_item = 1
+        # as is hinted in the problem description for Part 2:
+        # "Unfortunately, that relief was all that was keeping your worry levels
+        # from reaching ridiculous levels. You'll need to find another way to
+        # keep your worry levels manageable."
+        # The logic of the problem is only considered by divisibility after throws,
+        # not the actual final value of worry levels, without this digits can grow
+        # expoentialy!
+        for m in monkeys:
+            self.max_item *= m.testfactor
     def round(self, count=1):
         for _ in range(count):
             for monkey in self.monkeys:
-                for move in monkey.turn():
-                    self.monkeys[move.recipient].items.append(move.item)
+                for move in monkey.turn(self.worry_decay):
+                    self.monkeys[move.recipient].items.append(move.item % self.max_item)
     def __str__(self):
         return '(KeepAway\n  ' + '\n  '.join([str(m) for m in self.monkeys]) + '\n)' 
 
@@ -84,7 +96,7 @@ class ParseState:
             self.index += 1
         return int(digits)
 
-def parse(fname):
+def parse(fname, worry_decay=True):
     monkeys = []
     f = open(fname, 'r')
     parse_state = ParseState(f.read())
@@ -114,4 +126,4 @@ def parse(fname):
         mf = parse_state.consumeint()
         monkeys.append(Monkey(items, Expr(op, arg0, arg1), testfactor, mt, mf))
         parse_state.skipws()
-    return KeepAway(monkeys)
+    return KeepAway(monkeys, worry_decay)
