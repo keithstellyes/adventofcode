@@ -3,7 +3,7 @@ class HeightMap:
         self.rows = rows
         self.start = start
         self.end = end
-    def neighbors(self, coord):
+    def neighbors(self, coord, going_up=True):
         row = coord[0]
         col = coord[1]
         n = []
@@ -15,11 +15,14 @@ class HeightMap:
         candidates = [neigh for neigh in n if self.legal(neigh)]
         if coord == self.start:
             return candidates
-        maxheight = ord(self[coord]) + 1
-        # showing off with a little optimization
-        assert ord('S') < ord('a') and ord('E') < ord('z')
-        return [neigh for neigh in candidates if ord(self[neigh]) <= maxheight]
-    
+        if going_up:
+            maxheight = ord(self[coord]) + 1
+            # showing off with a little optimization
+            assert ord('S') < ord('a') and ord('E') < ord('z')
+            return [neigh for neigh in candidates if ord(self[neigh]) <= maxheight]
+        else:
+            minheight = ord(self[coord]) - 1
+            return [neigh for neigh in candidates if ord(self[neigh]) >= minheight]
     def rowc(self):
         return len(self.rows)
     def colc(self):
@@ -44,5 +47,6 @@ def parse(fname):
             line = line.replace('E', 'z')
         if 'S' in line:
             start = (len(rows), line.index('S'))
+            line = line.replace('S', 'a')
         rows.append(line)
     return HeightMap(rows, start, end)
