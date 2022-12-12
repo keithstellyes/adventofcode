@@ -7,6 +7,7 @@ class Board:
             for c in range(len(rows[0])):
                 self.rowremaining[r].add(rows[r][c])
                 self.colremaining[c].add(rows[r][c])
+        self.has_won = False
     def on_num(self, num):
         win = False
         for row in self.rowremaining:
@@ -17,7 +18,13 @@ class Board:
             col.discard(num)
             if len(col) == 0:
                 win = True
+        self.has_won = self.has_won or win
         return win
+    def __hash__(self):
+        return hash(str(self))
+    def __eq__(self, rhs):
+        return str(self) == str(rhs)
+
 def parse(fname):
     moves = None
     number_of_columns = 5
