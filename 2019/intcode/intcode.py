@@ -27,14 +27,28 @@ PM_POSITION = 0
 PM_IMMEDIATE = 1
 PARAMS = (PM_POSITION, PM_IMMEDIATE)
 #
+def default_on_out(val):
+    print('Intcode>', val)
+
 class Computer:
-    def __init__(self):
+    def __init__(self, on_in=None, on_out=default_on_out, id=None):
         self.data = []
         self.pc = 0
         self.halted = False
         self.inputq = []
+        self.on_out = on_out
+        self.on_in = self.default_on_in if on_in is None else on_in
+        self.id = id
+        self.stat_inc = 0
+        self.stat_outc = 0
 
     def step(self):
+        types = set([type(d) for d in self.data])
+        if len(types) > 1 or list(types)[0] != int:
+            print('Bad data type')
+            print(self.data)
+            print(types, self.data.index(None))
+            assert False
         op = self.data[self.pc]
         opcode = op % 100
         params = op // 100
@@ -60,9 +74,13 @@ class Computer:
         elif opcode == OP_MUL:
             self.write(params[2], a * b)
         elif opcode == OP_INP:
-            self.data[params[0]] = self.inputq.pop(0)
+            incoming = self.on_in()
+            assert type(incoming) == int
+            self.data[params[0]] = incoming
+            self.stat_inc += 1
         elif opcode == OP_OUT:
-            print('Intcode>', self.data[params[0]])
+            self.on_out(self.data[params[0]])
+            self.stat_outc += 1
         elif opcode == OP_JT:
             if a != 0:
                 newpc = b
@@ -88,6 +106,8 @@ class Computer:
                 self.halted = True
                 return
             self.step()
+    def default_on_in(self):
+        return self.inputq.pop(0)
 def parse_file(fname):
     with open(fname, 'r') as f:
         return [int(n) for n in f.read().split(',')]
