@@ -25,7 +25,7 @@ Some things missing/possible "improvements"
 - [x] Days 1-13
 
 2021:
-- [x] Days 1-4, 6
+- [x] Days 1-6
 
 2020:
 - [x] Day 1
