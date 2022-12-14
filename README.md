@@ -31,7 +31,7 @@ Some things missing/possible "improvements"
 - [x] Day 1
 
 2019:
-- [x] Day 1-2, 5, 7
+- [x] Day 1-2, 5, 7, 9
 
 # Callouts
 
