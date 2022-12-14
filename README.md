@@ -31,7 +31,7 @@ Some things missing/possible "improvements"
 - [x] Day 1
 
 2019:
-- [x] Day 1-2, 5, 7, 9
+- [x] Day 1-2, 5, 7, 9, 11, 13
 
 # Callouts
 
@@ -52,3 +52,9 @@ to accomodate pt 2. To complete Pt 2, shared.py moved most p1 code to shared. Pt
 
 2022-11:
 - Modular arithmetic required for sufficiently efficient solution
+
+2019:
+- A theme of this year was a custom CPU being built. Day 19 the puzzle was to
+run a "Breakout" type game, and my solution hacks the game to make it play
+itself/beatable (as it is difficult to actually beat, per the problem
+specification...)
