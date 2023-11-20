@@ -20,6 +20,10 @@ Some things missing/possible "improvements"
   - I decide not to do this for simplicity's sake, and for readability of
     logic and solution
 
+# Languages used
+
+Most code is Python, however starting for 2023 I plan on doing technologies other than Python. To experiment with how I want to do it, I've done a few other languages for 2022/01 (`awk`, `bash`, `common lisp`)
+
 # Progress
 2022:
 - [x] Days 1-14
