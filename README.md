@@ -10,7 +10,6 @@ p1.py ---+
 p2.py ---+
  Part 2
 ```
-(Except for day 1)
 I also initially write shared.py before I see part 2, trying to guess how
 it might be extended. Of course, inevitably it will likely have to change.
 Starting with Day 3, I use Git commit history to track changes made to accomodate part 2.
