@@ -4,6 +4,11 @@ ex*
 example
 input
 
+# R stuff
+*Rout*
+*Rdata*
+
+#######################################
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
