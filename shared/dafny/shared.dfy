@@ -5,7 +5,7 @@ module AOCShared {
 		forall i | 0 <= i < |s| :: s[i] > 0
 	}
 
-	lemma subsetSmaller(s: seq<int>)
+	lemma subsetSmaller(s: seq<nat>)
 		requires seqHasNoNegatives(s)
 		ensures forall n | 0 <= n < |s| :: s[n] <= sumSeqR(s) 
 		ensures |s| <= 1 || s[0] + sumSeqR(s[1..]) == sumSeqR(s)
@@ -13,23 +13,76 @@ module AOCShared {
 		
 	}
 
-	function sumSeqR(s: seq<int>):  (result: int)
-	ensures (s == [] && result == 0) || s != []
-	ensures (s == [0] && result == 0) || s != [0]
-	ensures (s == [0, 1] && result == 1) || s != [0, 1]
-	ensures (s == [1, 2, 3] && result == 1 + sumSeqR([2, 3])) || s != [1, 2, 3]
-	ensures (s == [1, 2, 3] && result == 6) || s != [1, 2, 3]
+	function sumSeqR(s: seq<nat>):  (result: nat)
+	// ensures (s == [] && result == 0) || s != []
+	// ensures (s == [0] && result == 0) || s != [0]
+	// ensures (s == [0, 1] && result == 1) || s != [0, 1]
+	// ensures (s == [1, 2, 3] && result == 1 + sumSeqR([2, 3])) || s != [1, 2, 3]
+	// ensures (s == [1, 2, 3] && result == 6) || s != [1, 2, 3]
 	ensures (seqHasNoNegatives(s) && result >= 0) || !seqHasNoNegatives(s)
 	{
 		if |s| == 0 then 0
 		else s[0] + sumSeqR(s[1..])
 	}
 
-	function maxBetweenTwoInts(a: int, b: int): (result: int)
-	ensures a < b || maxBetweenTwoInts(a, b) == a
+	lemma sumSeqLemma(a: seq<nat>, b: seq<nat>) 
+		ensures sumSeqR(a+b) == sumSeqR(a)+sumSeqR(b)
+	{
+		if a == [] {
+			assert a + b == b;
+		}
+		else {
+			sumSeqLemma(a[1..], b);
+			calc {
+			sumSeqR(a + b);
+			{
+				assert (a + b)[0] == a[0];
+				assert (a + b)[1..] == a[1..] + b;
+			}
+			a[0] + sumSeqR(a[1..] + b);
+			a[0] + sumSeqR(a[1..]) + sumSeqR(b);
+			}
+		}
+	}
+
+	function maxOf(a: int, b: int): int
 	{
 		if a >= b then a
 		else b
+	}
+
+	function seqMax(s: seq<int>):int 
+		requires |s| >= 1
+		ensures forall x :: x in s ==> seqMax(s) >= x
+		ensures seqMax(s) in s
+	{
+		if |s| == 1 then 
+			s[0] 
+		else if |s| == 2 then 
+			maxOf(s[0], s[1])
+		else 
+			var rest:=seqMax(s[1..]);
+			// assert forall x :: x in s[1..] ==> rest >= x;
+			var res:=maxOf(s[0], rest);
+			// assert res >= rest;
+			assert forall x :: x in s ==> res >= x by {
+				forall x | x in s 
+					ensures res >= x
+				{
+					if x in s[1..] {
+
+					}
+				}
+			}
+			res
+	}
+
+	lemma seqMaxLemma(s: seq<int>, n: nat)
+		requires |s| >= 1
+		requires 1 < n <= |s|
+		ensures seqMax(s[..n]) == seqMax(s) ==> seqMax(s) in s[..n]
+		ensures seqMax(s[..n]) < seqMax(s) ==> seqMax(s) !in s[..n]
+	{
 	}
 
 	lemma maxer(s: seq<int>)
@@ -86,14 +139,21 @@ module AOCShared {
 		}
 	}
 
-	method sumSeq(s: seq<int>)  returns (total: int)
-	//ensures total == sumSeqR(s)
+	method sumSeq(s: seq<nat>)  returns (total: nat)
+	ensures total == sumSeqR(s)
 	{
+		total := 0;
 		var i := 0;
-		while i < |s| {
+		while i < |s| 
+			invariant 0 <= i <= |s|
+			invariant total == sumSeqR(s[..i])
+		{
+			sumSeqLemma(s[..i],[s[i]]);
+			assert s[..(i+1)] == s[..i]+[s[i]];
 			total := total + s[i];
 			i := i + 1;
 		}
+		assert s[..i] == s;
 		return total;
 	}
 
