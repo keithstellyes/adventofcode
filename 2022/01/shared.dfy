@@ -4,7 +4,7 @@ include "../../shared/dafny/shared.dfy"
 module AOC202201Shared {
 	import opened Parsing
 	import opened AOCShared
-	function allCalorieTotals(bags: seq<seq<int>>) : (totals: seq<int>) 
+	function allCalorieTotals(bags: seq<seq<nat>>) : (totals: seq<nat>) 
 	ensures |bags| == |totals|
 	ensures |bags| == 0 || forall bag | 0 <= bag < |bags| :: totals[bag] == sumSeqR(bags[bag])
 	{
@@ -12,9 +12,9 @@ module AOC202201Shared {
 		else [sumSeqR(bags[0])] + allCalorieTotals(bags[1..])
 	}
 
-	method parseFileData(data: string) returns (bags: seq<seq<int>>) {
+	method parseFileData(data: string) returns (bags: seq<seq<nat>>) {
 		var index := 0;
-		var bag: seq<int>;
+		var bag: seq<nat>;
 		bag := [];
 		bags := [];
 		while index < |data| {

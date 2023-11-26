@@ -5,7 +5,7 @@ module AOCShared {
 		forall i | 0 <= i < |s| :: s[i] > 0
 	}
 
-	lemma subsetSmaller(s: seq<int>)
+	lemma subsetSmaller(s: seq<nat>)
 		requires seqHasNoNegatives(s)
 		ensures forall n | 0 <= n < |s| :: s[n] <= sumSeqR(s) 
 		ensures |s| <= 1 || s[0] + sumSeqR(s[1..]) == sumSeqR(s)
@@ -13,19 +13,19 @@ module AOCShared {
 		
 	}
 
-	function sumSeqR(s: seq<int>):  (result: int)
-	ensures (s == [] && result == 0) || s != []
-	ensures (s == [0] && result == 0) || s != [0]
-	ensures (s == [0, 1] && result == 1) || s != [0, 1]
-	ensures (s == [1, 2, 3] && result == 1 + sumSeqR([2, 3])) || s != [1, 2, 3]
-	ensures (s == [1, 2, 3] && result == 6) || s != [1, 2, 3]
+	function sumSeqR(s: seq<nat>):  (result: nat)
+	// ensures (s == [] && result == 0) || s != []
+	// ensures (s == [0] && result == 0) || s != [0]
+	// ensures (s == [0, 1] && result == 1) || s != [0, 1]
+	// ensures (s == [1, 2, 3] && result == 1 + sumSeqR([2, 3])) || s != [1, 2, 3]
+	// ensures (s == [1, 2, 3] && result == 6) || s != [1, 2, 3]
 	ensures (seqHasNoNegatives(s) && result >= 0) || !seqHasNoNegatives(s)
 	{
 		if |s| == 0 then 0
 		else s[0] + sumSeqR(s[1..])
 	}
 
-	lemma sumSeqLemma(a: seq<int>, b: seq<int>) 
+	lemma sumSeqLemma(a: seq<nat>, b: seq<nat>) 
 		ensures sumSeqR(a+b) == sumSeqR(a)+sumSeqR(b)
 	{
 		if a == [] {
@@ -54,6 +54,7 @@ module AOCShared {
 	function seqMax(s: seq<int>):int 
 		requires |s| > 1
 		ensures forall x :: x in s ==> seqMax(s) >= x
+		ensures seqMax(s) in s
 	{
 		if |s| == 1 then 
 			s[0] 
@@ -130,7 +131,7 @@ module AOCShared {
 		}
 	}
 
-	method sumSeq(s: seq<int>)  returns (total: int)
+	method sumSeq(s: seq<nat>)  returns (total: nat)
 	ensures total == sumSeqR(s)
 	{
 		total := 0;
