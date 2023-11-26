@@ -5,54 +5,46 @@ module AOC202201 {
 	import opened AOC202201Shared
 	import opened AOCShared
 
-	lemma linearSearch(haystack: seq<int>, needle: int, index: int) 
-		requires |haystack| >= 1
-		requires index < |haystack|
-		requires 0 <= index
-		ensures index < 2 || |haystack| < 2 || forall n | 0 <= n < index :: needle in haystack[n..(index + 1)]
-
 	method Main() {
 		var data := parseFileData("1000\n2000\n3000\n\n4000\n\n5000\n6000\n\n7000\n8000\n9000\n\n10000");
-		assume |data| > 0;
+		expect |data| > 0;
 		var result := algo(data);
 		print(result);
 	}
 
 	method algo(bags: seq<seq<nat>>)  returns (result: nat)
 	requires |bags| > 0
-	ensures result == max(allCalorieTotals(bags))
+	ensures result in allCalorieTotals(bags)
+	ensures result == seqMax(allCalorieTotals(bags))
 	{
-		var mostCals := -1;
+		var mostCals : nat;
+		mostCals := 0;
 		var totals := allCalorieTotals(bags);
-		assume(seqHasNoNegatives(totals));
-		expect |totals| > 1;
 		assert(forall i | 0 <= i < |bags| :: sumSeqR(bags[i]) in totals);
 		assert(forall i | 0 <= i < |totals| :: max(totals) >= totals[i]);
 		assert(mostCals <= max(totals));
-		assert(max(totals) in totals);
+		assert(seqMax(totals) in totals);
 		var i := 0;
 		while i < |bags| 
 		invariant mostCals <= max(totals)
+		invariant mostCals >= 0
+		invariant mostCals == 0 || mostCals in totals
+		invariant (mostCals != 0) ==> mostCals in totals
+		invariant forall n | 0 <= n < i && n < |bags| :: totals[n] <= mostCals
 		{
 			var bag := bags[i];
-			// assume(seqHasNoNegatives(bag));
-			// subsetSmaller(bag);
-			var currCals := sumSeqR(bag);
+			var currCals := sumSeq(bag);
+			var oldMostCals := mostCals;
 			if currCals > mostCals {
 				mostCals := currCals;
 			}
-			// if currCals == max(totals) {
-			// 	linearSearch(totals, max(totals), i);
-			// }
-			// assert(mostCals in totals);
-			// linearSearchingForMax(bag, mostCals, i);
-			// If we haven't found the max yet, then it's in the spaces we haven't checked
-			// assert(mostCals == max(totals) || max(totals) in totals[i..]);
-			// If we've found the max, then it's our current spot or before
-			// assert(mostCals != max(totals) || max(totals) in totals[0..i]);
+			assert mostCals >= currCals;
+			assert currCals == 0 || mostCals != 0;
+			assert currCals != 0 ==> mostCals != 0;
+			assert mostCals in allCalorieTotals(bags);
 			i := i + 1;
-			// assert(i != |bags| || mostCals == max(totals));
 		}
+		
 		return mostCals;
 	}
 }
