@@ -25,11 +25,55 @@ module AOCShared {
 		else s[0] + sumSeqR(s[1..])
 	}
 
-	function maxBetweenTwoInts(a: int, b: int): (result: int)
-	ensures a < b || maxBetweenTwoInts(a, b) == a
+	lemma sumSeqLemma(a: seq<int>, b: seq<int>) 
+		ensures sumSeqR(a+b) == sumSeqR(a)+sumSeqR(b)
+	{
+		if a == [] {
+			assert a + b == b;
+		}
+		else {
+			sumSeqLemma(a[1..], b);
+			calc {
+			sumSeqR(a + b);
+			{
+				assert (a + b)[0] == a[0];
+				assert (a + b)[1..] == a[1..] + b;
+			}
+			a[0] + sumSeqR(a[1..] + b);
+			a[0] + sumSeqR(a[1..]) + sumSeqR(b);
+			}
+		}
+	}
+
+	function maxOf(a: int, b: int): int
 	{
 		if a >= b then a
 		else b
+	}
+
+	function seqMax(s: seq<int>):int 
+		requires |s| > 1
+		ensures forall x :: x in s ==> seqMax(s) >= x
+	{
+		if |s| == 1 then 
+			s[0] 
+		else if |s| == 2 then 
+			maxOf(s[0], s[1])
+		else 
+			var rest:=seqMax(s[1..]);
+			// assert forall x :: x in s[1..] ==> rest >= x;
+			var res:=maxOf(s[0], rest);
+			// assert res >= rest;
+			assert forall x :: x in s ==> res >= x by {
+				forall x | x in s 
+					ensures res >= x
+				{
+					if x in s[1..] {
+
+					}
+				}
+			}
+			res
 	}
 
 	lemma maxer(s: seq<int>)
@@ -87,13 +131,20 @@ module AOCShared {
 	}
 
 	method sumSeq(s: seq<int>)  returns (total: int)
-	//ensures total == sumSeqR(s)
+	ensures total == sumSeqR(s)
 	{
+		total := 0;
 		var i := 0;
-		while i < |s| {
+		while i < |s| 
+			invariant 0 <= i <= |s|
+			invariant total == sumSeqR(s[..i])
+		{
+			sumSeqLemma(s[..i],[s[i]]);
+			assert s[..(i+1)] == s[..i]+[s[i]];
 			total := total + s[i];
 			i := i + 1;
 		}
+		assert s[..i] == s;
 		return total;
 	}
 

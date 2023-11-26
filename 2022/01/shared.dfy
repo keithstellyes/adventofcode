@@ -16,6 +16,7 @@ module AOC202201Shared {
 		var index := 0;
 		var bag: seq<int>;
 		bag := [];
+		bags := [];
 		while index < |data| {
 			var startingIndex := index;
 			var cals, newIndex: int;
