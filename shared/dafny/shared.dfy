@@ -52,7 +52,7 @@ module AOCShared {
 	}
 
 	function seqMax(s: seq<int>):int 
-		requires |s| > 1
+		requires |s| >= 1
 		ensures forall x :: x in s ==> seqMax(s) >= x
 		ensures seqMax(s) in s
 	{
@@ -78,7 +78,7 @@ module AOCShared {
 	}
 
 	lemma seqMaxLemma(s: seq<int>, n: nat)
-		requires |s| > 1
+		requires |s| >= 1
 		requires 1 < n <= |s|
 		ensures seqMax(s[..n]) == seqMax(s) ==> seqMax(s) in s[..n]
 		ensures seqMax(s[..n]) < seqMax(s) ==> seqMax(s) !in s[..n]
