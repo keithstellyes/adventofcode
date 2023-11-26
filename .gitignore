@@ -12,6 +12,10 @@ input
 *.dll
 *.runtimeconfig.json
 
+# AOC Repo
+.aocrepo
+build
+
 #######################################
 # Byte-compiled / optimized / DLL files
 __pycache__/

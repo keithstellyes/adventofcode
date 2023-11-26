@@ -33,7 +33,6 @@ module AOC202201Shared {
 				bag := [];
 				index := index + 1;
 			}
-			print(cals); print("\n");
 		}
 		return bags;
 	}

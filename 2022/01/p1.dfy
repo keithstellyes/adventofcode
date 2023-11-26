@@ -6,10 +6,14 @@ module AOC202201 {
 	import opened AOCShared
 
 	method Main() {
-		var data := parseFileData("1000\n2000\n3000\n\n4000\n\n5000\n6000\n\n7000\n8000\n9000\n\n10000");
+		var result := doData("1000\n2000\n3000\n\n4000\n\n5000\n6000\n\n7000\n8000\n9000\n\n10000");
+	}
+
+	method doData(rawFileData: string) returns (result: nat) {
+		var data := parseFileData(rawFileData);
 		expect |data| > 0;
-		var result := algo(data);
-		print(result);
+		result := algo(data);
+		return result;
 	}
 
 	method algo(bags: seq<seq<nat>>)  returns (result: nat)

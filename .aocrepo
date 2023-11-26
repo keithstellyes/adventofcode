@@ -1,0 +1,5 @@
+# This file is used to both configure the repo, and to help code
+# find the root of the source tree
+
+# change to paths that make sense for you
+DAFNY_RUNTIME_PATH = ""
