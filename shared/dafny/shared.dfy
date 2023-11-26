@@ -77,6 +77,14 @@ module AOCShared {
 			res
 	}
 
+	lemma seqMaxLemma(s: seq<int>, n: nat)
+		requires |s| > 1
+		requires 1 < n <= |s|
+		ensures seqMax(s[..n]) == seqMax(s) ==> seqMax(s) in s[..n]
+		ensures seqMax(s[..n]) < seqMax(s) ==> seqMax(s) !in s[..n]
+	{
+	}
+
 	lemma maxer(s: seq<int>)
 	requires |s| > 2
 	decreases |s|
