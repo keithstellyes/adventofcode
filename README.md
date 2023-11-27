@@ -61,3 +61,7 @@ to accomodate pt 2. To complete Pt 2, shared.py moved most p1 code to shared. Pt
 run a "Breakout" type game, and my solution hacks the game to make it play
 itself/beatable (as it is difficult to actually beat, per the problem
 specification...)
+
+# Thanks
+
+Thanks [Aaron Ellison](https://github.com/hath995) for helping with the Dafny code
