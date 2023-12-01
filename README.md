@@ -24,6 +24,9 @@ Some things missing/possible "improvements"
 Most code is Python, however starting for 2023 I plan on doing technologies other than Python. To experiment with how I want to do it, I've done a few other languages for 2022/01 (`awk`, `bash`, `common lisp`)
 
 # Progress
+2023:
+- [x] Day 1
+
 2022:
 - [x] Days 1-14
 
