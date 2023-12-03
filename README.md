@@ -25,7 +25,7 @@ Most code is Python, however starting for 2023 I plan on doing technologies othe
 
 # Progress
 2023:
-- [x] Day 1
+- [x] Days 1-3
 
 2022:
 - [x] Days 1-14
