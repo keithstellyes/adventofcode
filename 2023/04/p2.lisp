@@ -1,0 +1,12 @@
+(load "shared.lisp")
+(defparameter *cards* (play-cards-file (car *args*)))
+(defparameter *card-copies* (make-list (length *cards*) :initial-element 1))
+(defparameter *card* nil)
+(dotimes (cardnumber (length *cards*))
+  (setq *card* (elt *cards* cardnumber)
+	dotimes (loop for newcard from (+ 1 cardnumber) to (+ *card* cardnumber)
+		      do (setf (elt *card-copies* newcard)
+			       (+ (elt *card-copies* newcard)
+				  (elt *card-copies* cardnumber))))))
+
+(print (reduce '+ *card-copies*))
