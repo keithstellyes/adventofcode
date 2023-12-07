@@ -3,12 +3,7 @@ import sys
 from shared import *
 
 def cr(c):
-    if c == 'J':
-        return 1
-    if c.isdigit():
-        return int(c)
-    assert c in 'TQKA'
-    return 10 + 'TQKA'.index(c)
+    return 'J23456789TQKA'.index(c)
 
 def jokerspread(hand):
     if 'J' not in hand:
@@ -20,9 +15,9 @@ def jokerspread(hand):
 
 def handkey(hand):
     evaluated = max([evaluate_hand(h) for h in jokerspread(hand)])
-    total = evaluated * (13**5)
+    total = evaluated * (14**5)
     for i in range(5):
-        total += cr(hand[(5-1)-i]) * (13**i)
+        total += cr(hand[(5-1)-i]) * (14**i)
     return total
 
 

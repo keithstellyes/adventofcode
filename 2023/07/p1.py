@@ -3,10 +3,7 @@ import sys
 from shared import *
 
 def cr(c):
-    if c.isdigit():
-        return int(c)
-    assert c in 'TJQKA'
-    return 10 + 'TJQKA'.index(c)
+    return '23456789TJQKA'.index(c)
 
 def handkey(hand):
     total = evaluate_hand(hand) * (13**5)
