@@ -25,7 +25,7 @@ Most code is Python, however starting for 2023 I plan on doing technologies othe
 
 # Progress
 2023:
-- [x] Days 1-3
+- [x] Days 1-7
 
 2022:
 - [x] Days 1-14
@@ -41,7 +41,7 @@ Most code is Python, however starting for 2023 I plan on doing technologies othe
 
 # Callouts
 
-2022-04 
+2022-04
 - overloading Python `in` operator, `shared.py` did not require rewrite
 for pt 2
 
