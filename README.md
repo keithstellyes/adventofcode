@@ -31,7 +31,7 @@ Most code is Python, however starting for 2023 I plan on doing technologies othe
 - [x] Days 1-14
 
 2021:
-- [x] Days 1-6
+- [x] Days 1-7
 
 2020:
 - [x] Day 1
