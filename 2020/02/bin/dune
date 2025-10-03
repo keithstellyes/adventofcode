@@ -1,0 +1,9 @@
+(executable
+ (public_name part1)
+ (name part1)
+ (libraries day02 core))
+
+(executable
+ (public_name part2)
+ (name part2)
+ (libraries day02 core))
